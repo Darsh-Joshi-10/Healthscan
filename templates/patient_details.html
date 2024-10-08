@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px; /* Increased width */
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], input[type="number"], select, textarea {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Details</h1>
+        <form action="{{ url_for('generate_ai_report') }}" method="post">
+            <label for="patient_name">Patient Name:</label>
+            <input type="text" id="patient_name" name="patient_name" value="{{ patient_name }}" required>
+
+            <label for="patient_age">Patient Age:</label>
+            <input type="number" id="patient_age" name="patient_age" value="{{ patient_age }}" required>
+
+            <label for="patient_gender">Patient Gender:</label>
+            <select id="patient_gender" name="patient_gender" required>
+                <option value="Male" {% if patient_gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if patient_gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if patient_gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+
+            <label for="symptoms">Symptoms:</label>
+            <textarea id="symptoms" name="symptoms" rows="4" placeholder="Describe symptoms here..." required>{{ symptoms }}</textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
